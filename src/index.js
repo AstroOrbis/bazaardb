@@ -6,15 +6,35 @@ class BZDB {
 	}
 
 	add(key, value) {
-		this.JSONObject[key] = value;
+		if (this.JSONObject[key] == undefined) {
+			this.JSONObject[key] = value;
+		} else {
+			throw "Key already exists";
+		}
+	}
+
+	edit(key, value) {
+		if(this.JSONObject[key] == undefined) {
+			throw "Key does not exist";
+		} else {
+			this.JSONObject[key] = value;
+		}
 	}
 
 	get(key) {
-		return this.JSONObject[key];
+		if(this.JSONObject[key] == undefined) {
+			throw "Key does not exist";
+		} else {
+			return this.JSONObject[key];
+		}
 	}
 
 	remove(key) {
-		delete this.JSONObject[key];
+		if(this.JSONObject[key] == undefined) {
+			throw "Key does not exist";
+		} else {
+			delete this.JSONObject[key];
+		}
 	}
 
 	dump(consolelog) {
@@ -30,6 +50,10 @@ class BZDB {
 
 	export() {
 		fs.writeFileSync('database.bzdb', JSON.stringify(this.JSONObject));
+	}
+
+	clear() {
+		this.JSONObject = {};
 	}
 }
 
