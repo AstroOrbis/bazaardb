@@ -1,0 +1,30 @@
+{
+  "name": "bazaardb",
+  "version": "1.0.0",
+  "description": "A quick key-value store that focuses on simplicity.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AstroOrbis/bazaardb.git"
+  },
+  "keywords": [
+    "db",
+    "key-value",
+    "store"
+  ],
+  "author": "Astro Orbis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AstroOrbis/bazaardb/issues"
+  },
+  "homepage": "https://github.com/AstroOrbis/bazaardb#readme",
+  "bin": {
+    "bazaardb": "src/index.js"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
