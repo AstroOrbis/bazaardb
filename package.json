@@ -1,6 +1,6 @@
 {
   "name": "bazaardb",
-  "version": "1.1.0",
+  "version": "1.0.2",
   "description": "A quick key-value store that focuses on simplicity.",
   "main": "src/index.js",
   "scripts": {
