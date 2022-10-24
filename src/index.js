@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-class BZDB {
+class DB {
 	construct() {
 		this.JSONObject = undefined || {};
 	}
@@ -71,4 +71,4 @@ class BZDB {
 	}
 }
 
-module.exports = BZDB
+module.exports = DB

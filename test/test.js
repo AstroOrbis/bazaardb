@@ -2,7 +2,7 @@ const assert = require("assert");
 const BZDB = require("../src/index.js");
 const fs = require("fs");
 
-describe("BZDB", () => {
+describe("DB", () => {
 
 	describe("add", () => {
 		it("should add a key value pair to the database", () => {
