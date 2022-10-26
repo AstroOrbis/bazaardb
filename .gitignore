@@ -107,3 +107,6 @@ dist
 # BazaarDB specific files
 
 *.bzdb
+
+#package-lock
+package-lock.json
