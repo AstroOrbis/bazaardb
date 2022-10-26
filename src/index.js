@@ -1,9 +1,27 @@
-const fs = require('fs')
+const fs = require('fs');
 
-class DB {
-	construct() {
+module.exports = class DB {
+	constructor() {
+
+		this.info = undefined || {
+			"bazaardb": {
+					"author": {
+						"name": "Astro Orbis",
+						"email": "astroorbis@gmail.com",
+						"website": "https://astroorbis.com",
+						"discord": "AstroOrbis#9797"
+					},
+					"description": "A quick key-value store that focuses on simplicity.",
+					"license": "ISC",
+					"github": {
+						"repo": "https://github.com/astroorbis/bazaardb",
+						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
+					}
+				}
+		}
 		this.JSONObject = undefined || {};
 	}
+
 	/**
 	 * @param  {string} key
 	 * @param  {string} value
@@ -15,6 +33,7 @@ class DB {
 			throw "Key already exists";
 		}
 	}
+
 	/**
 	 * @param  {string} key
 	 * @param  {string} value
@@ -26,6 +45,7 @@ class DB {
 			this.JSONObject[key] = value;
 		}
 	}
+
 	/**
 	 * @param  {string} key
 	 */
@@ -36,6 +56,7 @@ class DB {
 			return this.JSONObject[key];
 		}
 	}
+
 	/**
 	 * @param  {string} key
 	 */
@@ -46,6 +67,7 @@ class DB {
 			delete this.JSONObject[key];
 		}
 	}
+
 	/**
 	 * @param  {bool} consolelog
 	 */
@@ -55,6 +77,7 @@ class DB {
 		}
 		return this.JSONObject;
 	}
+	
 	/**
 	 * @param  {string} filename
 	 */
@@ -69,6 +92,5 @@ class DB {
 	clear() {
 		this.JSONObject = {};
 	}
-}
 
-module.exports = DB
+}

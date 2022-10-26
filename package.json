@@ -1,31 +1,29 @@
 {
-  "name": "bazaardb",
-  "version": "1.1.1",
-  "description": "A quick key-value store that focuses on simplicity.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AstroOrbis/bazaardb.git"
-  },
-  "keywords": [
-    "db",
-    "key-value",
-    "store"
-  ],
-  "author": "Astro Orbis",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AstroOrbis/bazaardb/issues"
-  },
-  "homepage": "https://github.com/AstroOrbis/bazaardb#readme",
-  "bin": {
-    "bazaardb": "src/index.js"
-  },
-  "devDependencies": {
-    "eslint": "^8.26.0",
-    "mocha": "^10.1.0"
-  }
+	"name": "bazaardb",
+	"version": "1.2.0",
+	"description": "A quick key-value store that focuses on simplicity.",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AstroOrbis/bazaardb.git"
+	},
+	"keywords": [
+		"db", "key-value", "store", "json", "database"
+	],
+	"author": "Astro Orbis (astroorbis@gmail.com)",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/AstroOrbis/bazaardb/issues"
+	},
+	"homepage": "https://github.com/AstroOrbis/bazaardb#readme",
+	"bin": {
+		"bazaardb": "src/index.js"
+	},
+	"devDependencies": {
+		"eslint": "^8.26.0",
+		"mocha": "^10.1.0"
+	}
 }

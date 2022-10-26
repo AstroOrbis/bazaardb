@@ -5,24 +5,20 @@ BazaarDB is a quick key-value store that focuses on simplicity.
 ![npm bundle size](https://img.shields.io/bundlephobia/min/bazaardb?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/astroorbis/bazaardb?style=for-the-badge)
 ![npm](https://img.shields.io/npm/dt/bazaardb?style=for-the-badge)
-![Lines of code](https://img.shields.io/tokei/lines/github/astroorbis/bazaardb?style=for-the-badge)
 ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/bazaardb?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/astroorbis/bazaardb?style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/astroorbis/bazaardb)
+![GitHub top language](https://img.shields.io/github/languages/top/astroorbis/bazaardb?style=for-the-badge)
 
 ## Usage
 
 ```js
 const BazaarDB = require('bazaardb');
 const db = new BazaarDB.DB();
-db.construct()
 db.add('message', 'Hello World!');
 console.log(db.get('message'));
 ```
 
 ## Available commands
-
-- `db.construct()` - Constructs the database (MUST BE RUN BEFORE ANY OTHER COMMAND)
 
 - `db.add(key, value)` - Adds a key-value pair to the database
 - `db.edit(key, value)` - Edits a key-value pair in the database
