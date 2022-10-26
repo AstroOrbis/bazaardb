@@ -4,8 +4,7 @@
   "description": "A quick key-value store that focuses on simplicity.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
-    "prepublish": "rm *.bzdb"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
