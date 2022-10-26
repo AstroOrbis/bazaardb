@@ -63,7 +63,9 @@ describe("DB", () => {
 		it("should load a database from a file", () => {
 			var db = new BZDB();
 			db.construct();
-			db.load("testdb.bzdb");
+			db.add("testloadkey", "loadvalue");
+			db.export();
+			db.load("database.bzdb");
 			assert.equal(db.get("testloadkey"), "loadvalue");
 		});
 	});

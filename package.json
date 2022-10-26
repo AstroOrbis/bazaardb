@@ -1,10 +1,11 @@
 {
   "name": "bazaardb",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A quick key-value store that focuses on simplicity.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "rm *.bzdb"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,6 @@
   "homepage": "https://github.com/AstroOrbis/bazaardb#readme",
   "bin": {
     "bazaardb": "src/index.js"
-  },
-  "dependencies": {
-    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "eslint": "^8.26.0",
