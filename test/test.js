@@ -1,12 +1,12 @@
 const assert = require("assert");
-const BZDB = require("../src/index.js");
+const DB = require("../src/index.js");
 const fs = require("fs");
 
 describe("DB", () => {
 
 	describe("add", () => {
 		it("should add a key value pair to the database", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("testkey", "testvalue");
 			assert.equal(db.get("testkey"), "testvalue");
 		});
@@ -14,7 +14,7 @@ describe("DB", () => {
 
 	describe("edit", () => {
 		it("should edit a key value pair in the database", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("testkey", "testvalue");
 			db.edit("testkey", "testvalue2");
 			assert.equal(db.get("testkey"), "testvalue2");
@@ -23,7 +23,7 @@ describe("DB", () => {
 
 	describe("get", () => {
 		it("should return the value of a key", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("testkey", "testvalue");
 			db.add("testkey2", "This is not supposed to return");
 			assert.equal(db.get("testkey"), "testvalue");
@@ -32,7 +32,7 @@ describe("DB", () => {
 
 	describe("remove", () => {
 		it("should remove a key value pair from the database", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("key", "dump output");
 			db.remove("key");
 			
@@ -46,7 +46,7 @@ describe("DB", () => {
 
 	describe("dump", () => {
 		it("should return the database", () => {
-			var db = new BZDB();
+			var db = new DB();
 			testjson = {"testkey": "testvalue"};
 			db.add("testkey", "testvalue");
 			assert.equal(JSON.stringify(db.dump()), JSON.stringify(testjson));
@@ -55,10 +55,10 @@ describe("DB", () => {
 
 	describe("load", () => {
 		it("should load a database from a file", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("testloadkey", "loadvalue");
 			db.export();
-			db.load("database.bzdb");
+			db.load("database.db");
 			assert.equal(db.get("testloadkey"), "loadvalue");
 		});
 	});
@@ -66,19 +66,19 @@ describe("DB", () => {
 
 	describe("export", () => {
 		it("should export the database to a file", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("testkey", "testvalue");
 			db.add("key", "dump output");
 			db.export();
-			assert.equal(fs.readFileSync("database.bzdb"), JSON.stringify({"testkey": "testvalue", "key": "dump output"}));
-			fs.rmSync("database.bzdb");
+			assert.equal(fs.readFileSync("database.db"), JSON.stringify({"testkey": "testvalue", "key": "dump output"}));
+			fs.rmSync("database.db");
 		});
 	});
 
 
 	describe("clear", () => {
 		it("should clear the database", () => {
-			var db = new BZDB();
+			var db = new DB();
 			db.add("key", "value");
 			db.clear();
 			if (typeof db.dump() === "object") {

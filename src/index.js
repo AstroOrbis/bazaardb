@@ -1,23 +1,26 @@
 const fs = require('fs');
 
-module.exports = class DB {
+class DB {
 	constructor() {
 
 		this.info = undefined || {
 			"bazaardb": {
+				"info": {
 					"author": {
 						"name": "Astro Orbis",
 						"email": "astroorbis@gmail.com",
 						"website": "https://astroorbis.com",
 						"discord": "AstroOrbis#9797"
 					},
-					"description": "A quick key-value store that focuses on simplicity.",
-					"license": "ISC",
-					"github": {
-						"repo": "https://github.com/astroorbis/bazaardb",
-						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
-					}
+				"description": "A quick key-value store that focuses on simplicity.",
+				"license": "ISC",
+				"github": {
+					"repo": "https://github.com/astroorbis/bazaardb",
+					"note": "If you want, please contribute to the project! I would love to see what you can do with it."
 				}
+				},
+				"stores": {}
+			}
 		}
 		this.JSONObject = undefined || {};
 	}
@@ -77,7 +80,7 @@ module.exports = class DB {
 		}
 		return this.JSONObject;
 	}
-	
+
 	/**
 	 * @param  {string} filename
 	 */
@@ -86,7 +89,7 @@ module.exports = class DB {
 	}
 
 	export() {
-		fs.writeFileSync('database.bzdb', JSON.stringify(this.JSONObject));
+		fs.writeFileSync('database.db', JSON.stringify(this.JSONObject));
 	}
 
 	clear() {
@@ -94,3 +97,5 @@ module.exports = class DB {
 	}
 
 }
+
+module.exports = DB;
