@@ -77,25 +77,7 @@ describe("DB", () => {
 	describe("dump", () => {
 		it("should return the database", () => {
 			var db = new DB();
-			assert.equal(JSON.stringify(db.dump()), JSON.stringify({
-				"bazaardb": {
-					"info": {
-						"author": {
-							"name": "Astro Orbis",
-							"email": "astroorbis@gmail.com",
-							"website": "https://astroorbis.com",
-							"discord": "AstroOrbis#9797"
-						},
-					"description": "A quick key-value store that focuses on simplicity.",
-					"license": "ISC",
-					"github": {
-						"repo": "https://github.com/astroorbis/bazaardb",
-						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
-					}
-					},
-					"stores": {}
-				}
-			}));
+			assert.equal(JSON.stringify(db.dump()), JSON.stringify({"bazaardb": db.info()}));
 		});
 	});
 
@@ -115,25 +97,7 @@ describe("DB", () => {
 			var db = new DB();
 
 			db.export();
-			assert.equal(fs.readFileSync("database.db"), JSON.stringify({
-				"bazaardb": {
-					"info": {
-						"author": {
-							"name": "Astro Orbis",
-							"email": "astroorbis@gmail.com",
-							"website": "https://astroorbis.com",
-							"discord": "AstroOrbis#9797"
-						},
-					"description": "A quick key-value store that focuses on simplicity.",
-					"license": "ISC",
-					"github": {
-						"repo": "https://github.com/astroorbis/bazaardb",
-						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
-					}
-					},
-					"stores": {}
-				}
-			}));
+			assert.equal(fs.readFileSync("database.db"), JSON.stringify({"bazaardb": db.info()}));
 			fs.rmSync("database.db");
 		});
 	});
@@ -144,11 +108,22 @@ describe("DB", () => {
 			var db = new DB();
 			db.add("key", "value");
 			db.clear();
-			if (typeof db.dump() === "object") {
-				assert(true)
-			} else {
-				throw new Error(`Database not cleared: ${db.dump()}`);
-			}
+			// assert throw error when trying to get key
+			assert.throws(() => {
+				db.get("key");
+			});
 		});
 	});
+
+	describe("info", () => {
+
+		it("should return the database info", () => {
+			var db = new DB();
+
+			assert.equal(db.info().info.github.repo, "https://github.com/astroorbis/bazaardb");
+
+		});
+	
+	});
+
 });
