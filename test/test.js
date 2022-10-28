@@ -10,6 +10,21 @@ describe("DB", () => {
 			db.add("testkey", "testvalue");
 			assert.equal(db.get("testkey"), "testvalue");
 		});
+
+		it("should throw an error if the key already exists", () => {
+			var db = new DB();
+			db.add("testkey", "testvalue");
+			assert.throws(() => {
+				db.add("testkey", "testvalue");
+			});
+		});
+
+		it("should throw an error if the key is our reserved key 'bazaardb'", () => {
+			var db = new DB();
+			assert.throws(() => {
+				db.add("bazaardb", "testvalue");
+			});
+		});
 	});
 
 	describe("edit", () => {
@@ -18,6 +33,21 @@ describe("DB", () => {
 			db.add("testkey", "testvalue");
 			db.edit("testkey", "testvalue2");
 			assert.equal(db.get("testkey"), "testvalue2");
+		});
+
+
+		it("should throw an error if the key does not exist", () => {
+			var db = new DB();
+			assert.throws(() => {
+				db.edit("testkey", "testvalue");
+			});
+		});
+
+		it("should throw an error if the key is our reserved key 'bazaardb'", () => {
+			var db = new DB();
+			assert.throws(() => {
+				db.edit("bazaardb", "testvalue");
+			});
 		});
 	});
 

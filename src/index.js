@@ -3,7 +3,7 @@ const fs = require('fs');
 class DB {
 	constructor() {
 
-		this.info = undefined || {
+		this.JSONObject = undefined || {
 			"bazaardb": {
 				"info": {
 					"author": {
@@ -21,8 +21,7 @@ class DB {
 				},
 				"stores": {}
 			}
-		}
-		this.JSONObject = undefined || {};
+		};
 	}
 
 	/**
@@ -30,6 +29,9 @@ class DB {
 	 * @param  {string} value
 	 */
 	add(key, value) {
+		if (key == "bazaardb") {
+			throw "Attempted to use reserved key";
+		}
 		if (this.JSONObject[key] == undefined) {
 			this.JSONObject[key] = value;
 		} else {
@@ -42,6 +44,9 @@ class DB {
 	 * @param  {string} value
 	 */
 	edit(key, value) {
+		if (key == "bazaardb") {
+			throw "Attempted to use reserved key";
+		}
 		if(this.JSONObject[key] == undefined) {
 			throw "Key does not exist";
 		} else {
