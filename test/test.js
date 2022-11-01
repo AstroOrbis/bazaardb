@@ -89,6 +89,7 @@ describe("DB", () => {
 			var db = new DB();
 
 			db.export('exporttest.db');
+      
 			assert.equal(fs.readFileSync("exporttest.db"), JSON.stringify({
 				"bazaardb": {
 					"info": {
@@ -108,6 +109,7 @@ describe("DB", () => {
 					"stores": {}
 				}
 			}));
+      
 			fs.rmSync("exporttest.db");
 		});
 	});
@@ -120,5 +122,7 @@ describe("DB", () => {
 			db.clear();
 			assert.throws(() => {db.get("key")}, KeyDoesNotExistError);
 		});
+	
 	});
+
 });
