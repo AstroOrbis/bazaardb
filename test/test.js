@@ -89,18 +89,26 @@ describe("DB", () => {
 			var db = new DB();
 
 			db.export('exporttest.db');
-      
-			assert.equal(fs.readFileSync("exporttest.db"), JSON.stringify({
+
+			assert.equal(fs.readFileSync("exporttest.db", {encoding: "utf-8"}), JSON.stringify({
 				"bazaardb": {
 					"info": {
-						"author": {
-							"name": "Astro Orbis",
-							"email": "astroorbis@gmail.com",
-							"website": "https://astroorbis.com",
-							"discord": "AstroOrbis#9797"
-						},
+						"authors": [
+							{
+								"name": "Astro Orbis",
+								"email": "astroorbis@gmail.com",
+								"website": "https://astroorbis.com",
+								"discord": "AstroOrbis#9797"
+							},
+							{
+								"name": "Sam Roizen",
+								"email": "sam@samroizen.com",
+								"website": "https://samroizen.com",
+								"discord": "N/A"
+							}
+						],
 					"description": "A quick key-value store that focuses on simplicity.",
-					"license": "ISC",
+					"license": "MIT",
 					"github": {
 						"repo": "https://github.com/astroorbis/bazaardb",
 						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
@@ -109,7 +117,6 @@ describe("DB", () => {
 					"stores": {}
 				}
 			}));
-      
 			fs.rmSync("exporttest.db");
 		});
 	});
