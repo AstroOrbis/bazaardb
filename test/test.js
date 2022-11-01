@@ -1,6 +1,8 @@
 const assert = require("assert");
 const DB = require("../src/index.js");
 const fs = require("fs");
+const { KeyDoesNotExistError, KeyExistsError, ReservedKeyError } = require("../src/errors.js");
+
 
 describe("DB", () => {
 
@@ -14,16 +16,12 @@ describe("DB", () => {
 		it("should throw an error if the key already exists", () => {
 			var db = new DB();
 			db.add("testkey", "testvalue");
-			assert.throws(() => {
-				db.add("testkey", "testvalue");
-			});
+			assert.throws(() => {db.add("testkey", "testvalue")}, KeyExistsError);
 		});
 
 		it("should throw an error if the key is our reserved key 'bazaardb'", () => {
 			var db = new DB();
-			assert.throws(() => {
-				db.add("bazaardb", "testvalue");
-			});
+			assert.throws(() => {db.add("bazaardb", "testvalue")}, ReservedKeyError);
 		});
 	});
 
@@ -38,16 +36,12 @@ describe("DB", () => {
 
 		it("should throw an error if the key does not exist", () => {
 			var db = new DB();
-			assert.throws(() => {
-				db.edit("testkey", "testvalue");
-			});
+			assert.throws(() => {db.edit("testkey", "testvalue")}, KeyDoesNotExistError);
 		});
 
 		it("should throw an error if the key is our reserved key 'bazaardb'", () => {
 			var db = new DB();
-			assert.throws(() => {
-				db.edit("bazaardb", "testvalue");
-			});
+			assert.throws(() => {db.edit("bazaardb", "testvalue")}, ReservedKeyError);
 		});
 	});
 
@@ -65,37 +59,16 @@ describe("DB", () => {
 			var db = new DB();
 			db.add("key", "dump output");
 			db.remove("key");
-			
-			try {
-				db.get("key");
-			} catch (e) {
-				assert.equal(e, "Key does not exist");
-			}
+			assert.throws(() => {db.get("key")}, KeyDoesNotExistError);
 		});
 	});
 
 	describe("dump", () => {
 		it("should return the database", () => {
 			var db = new DB();
-			assert.equal(JSON.stringify(db.dump()), JSON.stringify({
-				"bazaardb": {
-					"info": {
-						"author": {
-							"name": "Astro Orbis",
-							"email": "astroorbis@gmail.com",
-							"website": "https://astroorbis.com",
-							"discord": "AstroOrbis#9797"
-						},
-					"description": "A quick key-value store that focuses on simplicity.",
-					"license": "ISC",
-					"github": {
-						"repo": "https://github.com/astroorbis/bazaardb",
-						"note": "If you want, please contribute to the project! I would love to see what you can do with it."
-					}
-					},
-					"stores": {}
-				}
-			}));
+			db.export("dumptest.db")
+			assert.equal(JSON.stringify(db.dump()), fs.readFileSync("dumptest.db"));
+			fs.rmSync("dumptest.db");
 		});
 	});
 
@@ -103,9 +76,10 @@ describe("DB", () => {
 		it("should load a database from a file", () => {
 			var db = new DB();
 			db.add("testloadkey", "loadvalue");
-			db.export();
-			db.load("database.db");
+			db.export('loadtest.db');
+			db.load("loadtest.db");
 			assert.equal(db.get("testloadkey"), "loadvalue");
+			fs.rmSync("loadtest.db");
 		});
 	});
 
@@ -114,8 +88,8 @@ describe("DB", () => {
 		it("should export the database to a file", () => {
 			var db = new DB();
 
-			db.export();
-			assert.equal(fs.readFileSync("database.db"), JSON.stringify({
+			db.export('exporttest.db');
+			assert.equal(fs.readFileSync("exporttest.db"), JSON.stringify({
 				"bazaardb": {
 					"info": {
 						"author": {
@@ -134,7 +108,7 @@ describe("DB", () => {
 					"stores": {}
 				}
 			}));
-			fs.rmSync("database.db");
+			fs.rmSync("exporttest.db");
 		});
 	});
 
@@ -144,11 +118,7 @@ describe("DB", () => {
 			var db = new DB();
 			db.add("key", "value");
 			db.clear();
-			if (typeof db.dump() === "object") {
-				assert(true)
-			} else {
-				throw new Error(`Database not cleared: ${db.dump()}`);
-			}
+			assert.throws(() => {db.get("key")}, KeyDoesNotExistError);
 		});
 	});
 });
