@@ -113,7 +113,7 @@ class DB {
 	 */
 	info(consolelog) {
 		if (consolelog){
-			console.log(this.JSONObject.bazaardb.info);
+			console.log(this.JSONObject.bazaardb);
 		}
 		return this.JSONObject.bazaardb;
 	}
