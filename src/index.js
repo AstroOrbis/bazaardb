@@ -1,4 +1,5 @@
 const fs = require('fs');
+const {ReservedKeyError, KeyExistsError, KeyDoesNotExistError} = require('./errors')
 
 class DB {
 	constructor() {
@@ -38,12 +39,12 @@ class DB {
 	 */
 	add(key, value) {
 		if (key == "bazaardb") {
-			throw "Attempted to use reserved key";
+			throw new ReservedKeyError;
 		}
 		if (this.JSONObject[key] == undefined) {
 			this.JSONObject[key] = value;
 		} else {
-			throw "Key already exists";
+			throw new KeyExistsError;
 		}
 	}
 
@@ -53,10 +54,10 @@ class DB {
 	 */
 	edit(key, value) {
 		if (key == "bazaardb") {
-			throw "Attempted to use reserved key";
+			throw new ReservedKeyError;
 		}
 		if(this.JSONObject[key] == undefined) {
-			throw "Key does not exist";
+			throw new KeyDoesNotExistError;
 		} else {
 			this.JSONObject[key] = value;
 		}
@@ -67,7 +68,7 @@ class DB {
 	 */
 	get(key) {
 		if(this.JSONObject[key] == undefined) {
-			throw "Key does not exist";
+			throw new KeyDoesNotExistError;
 		} else {
 			return this.JSONObject[key];
 		}
@@ -78,7 +79,7 @@ class DB {
 	 */
 	remove(key) {
 		if(this.JSONObject[key] == undefined) {
-			throw "Key does not exist";
+			throw new KeyDoesNotExistError;
 		} else {
 			delete this.JSONObject[key];
 		}
@@ -101,8 +102,11 @@ class DB {
 		this.JSONObject =  JSON.parse(fs.readFileSync(filename));
 	}
 
-	export() {
-		fs.writeFileSync('database.db', JSON.stringify(this.JSONObject));
+	/**
+	 * @param  {string} filename
+	 */
+	export(filename) {
+		fs.writeFileSync(filename, JSON.stringify(this.JSONObject));
 	}
 
 	clear() {

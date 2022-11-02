@@ -104,9 +104,8 @@ dist
 .tern-port
 
 
-# BazaarDB specific files
+############
 
 *.bzdb
-
-#package-lock
+*.db
 package-lock.json
